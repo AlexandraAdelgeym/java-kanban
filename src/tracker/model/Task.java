@@ -1,21 +1,19 @@
+package tracker.model;
+
 import java.util.Objects;
-import java.util.ArrayList;
 
 public class Task {
-    String name;
-    String description;
-    int id;
-    Status status;
-    ArrayList<Task> subtasks = new ArrayList<>();
-    Epic parentEpic;
+    private final String name;
+    private final String description;
+    private int id;
+    private Status status;
 
 
-    public Task(String name, String description, int id, Status status, Epic parentEpic) {
+    public Task(String name, String description, int id, Status status) {
         this.name = name;
         this.description = description;
         this.id = id;
         this.status = status;
-        this.parentEpic = parentEpic;
 
     }
 
@@ -51,10 +49,13 @@ public class Task {
     public void setStatus(Status status) {
         this.status = status;
     }
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {
-        return "Task{id=" + id + ", name='" + name + "', status=" + status + "}";
+        return "model.Task{id=" + id + ", name='" + name + "', status=" + status + "}";
     }
 
 }
