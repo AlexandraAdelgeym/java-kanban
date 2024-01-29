@@ -1,6 +1,11 @@
-package tracker.model;
+package tracker;
 
 import tracker.controllers.TaskManager;
+import tracker.model.Epic;
+import tracker.model.Status;
+import tracker.model.Subtask;
+import tracker.model.Task;
+
 import java.util.ArrayList;
 
 public class Main {

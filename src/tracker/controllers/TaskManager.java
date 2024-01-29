@@ -8,10 +8,10 @@ import tracker.model.Status;
 import java.util.HashMap;
 import java.util.ArrayList;
 public class TaskManager {
-    HashMap<Integer, Task> tasks = new HashMap<>();
-    public HashMap<Integer, Epic> epics = new HashMap<>();
-    HashMap<Integer, Subtask> allSubtasks = new HashMap<>();
-    static int counter = 0;
+    private HashMap<Integer, Task> tasks = new HashMap<>();
+    private HashMap<Integer, Epic> epics = new HashMap<>();
+    private HashMap<Integer, Subtask> allSubtasks = new HashMap<>();
+    private static int counter = 0;
 
      public int generateId(){
         return counter += 1;
@@ -23,7 +23,6 @@ public class TaskManager {
     }
     private void deleteTasks() {
         tasks.clear();
-        counter = 0;
     }
 
     private void deleteSubtasks() {
@@ -59,8 +58,6 @@ public class TaskManager {
         if (parentEpic != null) {
             parentEpic.getSubtasks().add(subtask);
         }
-
-        tasks.put(id, subtask);
         allSubtasks.put(id, subtask);
         return id;
     }
@@ -68,7 +65,6 @@ public class TaskManager {
     public int addNewEpic(Epic epic) {
         final int id = generateId();
         epic.setId(id);
-        tasks.put(id, epic);
         epics.put(id, epic);
         return id;
     }
