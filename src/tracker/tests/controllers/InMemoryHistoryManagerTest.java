@@ -1,5 +1,6 @@
-package tracker.tests;
+package tracker.tests.controllers;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tracker.controllers.InMemoryHistoryManager;
 import tracker.controllers.InMemoryTaskManager;
@@ -12,9 +13,17 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryHistoryManagerTest {
+    InMemoryHistoryManager historyManager;
+
+    @BeforeEach
+    void setUp() {
+        historyManager = new InMemoryHistoryManager();
+        // Optionally, reset the history list before each test
+        InMemoryHistoryManager.getHistoryList().clear();
+    }
     @Test
     void testAddToHistory() {
-        InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
+        
         Task task = new Task("Тестовая задача", "Описание тестовой задачи",1, Status.NEW);
 
         historyManager.add(task);
@@ -43,7 +52,6 @@ class InMemoryHistoryManagerTest {
 
     @Test
     void testAddToHistoryOrdered() {
-        InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
 
         Task task1 = new Task("Тестовая задача 1", "Описание тестовой задачи 1", 1, Status.NEW);
         Task task2 = new Task("Тестовая задача 2", "Описание тестовой задачи 2", 2, Status.IN_PROGRESS);
@@ -64,7 +72,6 @@ class InMemoryHistoryManagerTest {
 
     @Test
     void testGetHistoryEmpty() {
-        InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
         List<Task> history = historyManager.getHistory();
 
         assertNotNull(history, "История не должна быть пустой");

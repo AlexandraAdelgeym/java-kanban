@@ -21,6 +21,7 @@ public class Epic extends Task {
         for (Task subtask : subtasks) {
             subtask.setId(0);
         }
+        subtasks.clear();
     }
 
 

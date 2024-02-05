@@ -1,4 +1,4 @@
-package tracker.tests;
+package tracker.tests.controllers;
 
 import org.junit.jupiter.api.Test;
 import tracker.controllers.InMemoryTaskManager;

@@ -4,6 +4,7 @@ import tracker.model.Epic;
 import tracker.model.Status;
 import tracker.model.Subtask;
 import tracker.model.Task;
+import tracker.controllers.InMemoryHistoryManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,8 +17,6 @@ public class InMemoryTaskManager implements TaskManager {
     private HistoryManager historyManager = Managers.getDefaultHistory();
 
     private static int counter = 0;
-
-    private final List<Task> historyList = new ArrayList<>();
 
 
     @Override
@@ -62,18 +61,12 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Subtask getSubtaskById(int subtaskId) {
         Subtask subtask = (Subtask) tasks.get(subtaskId);
-        if (subtask != null) {
-            updateHistory(subtask);
-        }
         return subtask;
     }
 
     @Override
     public Epic getEpicById(int epicId) {
         Epic epic = (Epic) tasks.get(epicId);
-        if (epic != null) {
-            updateHistory(epic);
-        }
         return epic;
     }
 
@@ -204,16 +197,9 @@ public class InMemoryTaskManager implements TaskManager {
         return true;
     }
 
-    private void updateHistory(Task task) {
-        historyList.add(task);
-        if (historyList.size() > 10) {
-            historyList.remove(0);
-        }
-    }
-
     @Override
     public List<Task> getHistory() {
-        return new ArrayList<>(historyList);
+        return new ArrayList<>(InMemoryHistoryManager.getHistoryList());
     }
 
 }
