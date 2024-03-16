@@ -137,5 +137,68 @@ class InMemoryTaskManagerTest {
         assertNull(retrievedTask, "Удаленная задача должна быть null");
     }
 
+    @Test
+    void testSubtaskNoOldIdsStored() {
+        InMemoryTaskManager taskManager = new InMemoryTaskManager();
 
+        Epic epic = new Epic("Эпик 1", "Описание эпика 1", 1, new ArrayList<>());
+        taskManager.addNewEpic(epic);
+
+        Subtask subtask = new Subtask("Подзадача 1", "Описание подзадачи 1", 1, Status.NEW, epic);
+        taskManager.addNewSubtask(subtask);
+
+        taskManager.removeSubtaskById(2);
+
+        assertNull(subtask.getParentEpic());
+    }
+
+    @Test
+    void testNoIrrelevantSubtaskIdsInsideEpics() {
+        InMemoryTaskManager taskManager = new InMemoryTaskManager();
+
+        Epic epic = new Epic("Эпик 1", "Описание эпика 1", 1, new ArrayList<>());
+        taskManager.addNewEpic(epic);
+
+        Subtask subtask1 = new Subtask("Подзадача 1", "Описание подзадачи 1", 2, Status.NEW, epic);
+        taskManager.addNewSubtask(subtask1);
+
+        Subtask subtask2 = new Subtask("Подзадача 2", "Описание подзадачи 2", 3, Status.NEW, epic);
+        taskManager.addNewSubtask(subtask2);
+
+        Subtask subtask3 = new Subtask("Подзадача 3", "Описание подзадачи 3", 4, Status.NEW, epic);
+        taskManager.addNewSubtask(subtask3);
+
+        taskManager.removeSubtaskById(3);
+        taskManager.removeSubtaskById(4);
+
+        List<Task> subtasksForEpic = taskManager.getSubtasksForEpic(1);
+
+        assertFalse(subtasksForEpic.contains(subtask2));
+        assertFalse(subtasksForEpic.contains(subtask3));
+    }
+
+    @Test
+    void testTaskInstanceSettersAffectManagerData() {
+        InMemoryTaskManager taskManager = new InMemoryTaskManager();
+
+        Epic epic = new Epic("Эпик 1", "Описание эпика 1", 1, new ArrayList<>());
+        taskManager.addNewEpic(epic);
+
+        Task task = new Task("Тестовая задача", "Описание тестовой задачи", 1, Status.NEW);
+        taskManager.addNewTask(task);
+
+        task.setName("Обновленная задача 1");
+        task.setStatus(Status.DONE);
+
+        epic.setName("Обновленный эпик 1");
+        epic.setStatus(Status.DONE);
+
+        Task updatedTask = taskManager.getTaskById(2);
+        Epic updatedEpic = taskManager.getEpicById(1);
+
+        assertEquals("Обновленная задача 1", updatedTask.getName());
+        assertEquals(Status.DONE, updatedTask.getStatus());
+
+        assertEquals("Обновленный эпик 1", updatedEpic.getName());
+    }
 }

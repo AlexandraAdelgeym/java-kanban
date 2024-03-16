@@ -1,5 +1,6 @@
 package tracker.controllers;
 
+import org.w3c.dom.Node;
 import tracker.model.Epic;
 import tracker.model.Status;
 import tracker.model.Subtask;
@@ -101,11 +102,14 @@ public class InMemoryTaskManager implements TaskManager {
 
      @Override
      public void updateTask(Task updatedTask) {
-         tasks.put(updatedTask.getId(), updatedTask);
+
+        tasks.put(updatedTask.getId(), updatedTask);
     }
      @Override
      public void removeTaskById(int taskId) {
         tasks.remove(taskId);
+        historyManager.remove(taskId);
+
     }
     @Override
     public void updateSubtask(Subtask updatedSubtask) {
@@ -197,9 +201,11 @@ public class InMemoryTaskManager implements TaskManager {
         return true;
     }
 
+
     @Override
     public List<Task> getHistory() {
-        return new ArrayList<>(InMemoryHistoryManager.getHistoryList());
+        InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
+        return historyManager.getHistory();
     }
 
 }
