@@ -8,7 +8,6 @@ import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
-    private static final int MAX_HISTORY_SIZE = 10;
 
     private HashMap<Integer, Node> taskMap;
     private Node head;
@@ -38,10 +37,6 @@ public class InMemoryHistoryManager implements HistoryManager {
             newNode.prev = tail;
         }
         tail = newNode;
-
-        if (taskMap.size() > MAX_HISTORY_SIZE) {
-            removeNode(head);
-        }
     }
 
     @Override
@@ -90,10 +85,6 @@ public class InMemoryHistoryManager implements HistoryManager {
             newNode.prev = tail;
         }
         tail = newNode;
-
-        if (taskMap.size() > MAX_HISTORY_SIZE) {
-            removeNode(head);
-        }
     }
 
     public List<Task> getTasks() {

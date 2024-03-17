@@ -24,7 +24,7 @@ class InMemoryHistoryManagerTest {
 
     @Test
     void testAddToHistory() {
-        Task task = new Task("Test Task", "Description", 1, Status.NEW);
+        Task task = new Task("Test Task", "Description", Status.NEW);
 
         historyManager.add(task);
 
@@ -38,7 +38,7 @@ class InMemoryHistoryManagerTest {
     @Test
     void testAddToHistoryLimitedSize() {
         for (int i = 1; i <= 15; i++) {
-            Task task = new Task("Test Task " + i, "Description " + i, i, Status.NEW);
+            Task task = new Task("Test Task " + i, "Description " + i, Status.NEW);
             historyManager.add(task);
         }
 
@@ -50,9 +50,9 @@ class InMemoryHistoryManagerTest {
 
     @Test
     void testAddToHistoryOrdered() {
-        Task task1 = new Task("Test Task 1", "Description 1", 1, Status.NEW);
-        Task task2 = new Task("Test Task 2", "Description 2", 2, Status.IN_PROGRESS);
-        Task task3 = new Task("Test Task 3", "Description 3", 3, Status.DONE);
+        Task task1 = new Task("Test Task 1", "Description 1", Status.NEW);
+        Task task2 = new Task("Test Task 2", "Description 2",  Status.IN_PROGRESS);
+        Task task3 = new Task("Test Task 3", "Description 3",  Status.DONE);
 
         historyManager.add(task1);
         historyManager.add(task2);

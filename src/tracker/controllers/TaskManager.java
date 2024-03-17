@@ -13,6 +13,8 @@ public interface TaskManager {
 
     ArrayList<tracker.model.Task> getAllTasks();
 
+    ArrayList<tracker.model.Subtask> getAllSubtasks();
+
     void deleteTasks();
 
     void deleteSubtasks();

@@ -7,8 +7,8 @@ public class Subtask extends Task {
         return parentEpic;
     }
 
-    public Subtask(String name, String description, int id, Status status, Epic parentEpic) {
-        super(name, description, id, status);
+    public Subtask(String name, String description, Status status, Epic parentEpic) {
+        super(name, description, status);
         this.parentEpic = parentEpic;
 
     }
