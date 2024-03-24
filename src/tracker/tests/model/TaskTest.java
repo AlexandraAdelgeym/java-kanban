@@ -17,9 +17,9 @@ class TaskTest {
     Task task2;
     @BeforeEach
     void init(){
-        task = new Task("Тестовая задача", "Описание тестовой задачи", 1, Status.DONE);
-        task1 = new Task("Задача 1", "Описание 1", 1, Status.IN_PROGRESS);
-        task2 = new Task("Задача 1", "Описание 1", 1, Status.IN_PROGRESS);
+        task = new Task("Тестовая задача", "Описание тестовой задачи", Status.DONE);
+        task1 = new Task("Задача 1", "Описание 1",  Status.IN_PROGRESS);
+        task2 = new Task("Задача 1", "Описание 1",  Status.IN_PROGRESS);
     }
 
     @Test

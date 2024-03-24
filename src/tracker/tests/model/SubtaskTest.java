@@ -16,8 +16,8 @@ class SubtaskTest {
 
     @BeforeEach
     void init(){
-        epic = new Epic("Эпик 1", "Описание эпика", 1, new ArrayList<>());
-        subtask = new Subtask("Подзадача 1", "Описание подзадачи", 2, Status.IN_PROGRESS, epic);
+        epic = new Epic("Эпик 1", "Описание эпика", new ArrayList<>());
+        subtask = new Subtask("Подзадача 1", "Описание подзадачи", Status.IN_PROGRESS, epic);
     }
     @Test
     void testSubtaskInitialization() {

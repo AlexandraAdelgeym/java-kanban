@@ -1,5 +1,6 @@
 package tracker.controllers;
 
+import org.w3c.dom.Node;
 import tracker.model.Epic;
 import tracker.model.Status;
 import tracker.model.Subtask;
@@ -27,6 +28,12 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public ArrayList<Task> getAllTasks() {
         return new ArrayList<>(tasks.values());
+
+    }
+
+    @Override
+    public ArrayList<Subtask> getAllSubtasks() {
+        return new ArrayList<>(allSubtasks.values());
 
     }
     @Override
@@ -60,14 +67,12 @@ public class InMemoryTaskManager implements TaskManager {
     }
     @Override
     public Subtask getSubtaskById(int subtaskId) {
-        Subtask subtask = (Subtask) tasks.get(subtaskId);
-        return subtask;
+        return allSubtasks.get(subtaskId);
     }
 
     @Override
     public Epic getEpicById(int epicId) {
-        Epic epic = (Epic) tasks.get(epicId);
-        return epic;
+        return epics.get(epicId);
     }
 
     @Override
@@ -101,11 +106,14 @@ public class InMemoryTaskManager implements TaskManager {
 
      @Override
      public void updateTask(Task updatedTask) {
-         tasks.put(updatedTask.getId(), updatedTask);
+
+        tasks.put(updatedTask.getId(), updatedTask);
     }
      @Override
      public void removeTaskById(int taskId) {
         tasks.remove(taskId);
+        historyManager.remove(taskId);
+
     }
     @Override
     public void updateSubtask(Subtask updatedSubtask) {
@@ -133,20 +141,21 @@ public class InMemoryTaskManager implements TaskManager {
             for (Task subtask : subtasksToRemove) {
                 removeTaskById(subtask.getId());
             }
-            removeTaskById(epicId);
+            epics.remove(epicId);
+            historyManager.remove(epicId);
         }
     }
     @Override
     public void removeSubtaskById(int subtaskId) {
-        Task subtaskToRemove = getTaskById(subtaskId);
+        Subtask subtaskToRemove = getSubtaskById(subtaskId);
         if (subtaskToRemove != null) {
-            Subtask subtask = (Subtask) subtaskToRemove;
-            Epic parentEpic = subtask.getParentEpic();
+            Epic parentEpic = subtaskToRemove.getParentEpic();
             if (parentEpic != null) {
-                parentEpic.getSubtasks().remove(subtask);
+                parentEpic.getSubtasks().remove(subtaskToRemove);
                 calculateEpicStatus(parentEpic);
             }
-            removeTaskById(subtaskId);
+            allSubtasks.remove(subtaskId);
+            historyManager.remove(subtaskId);
         }
     }
     @Override
@@ -197,9 +206,11 @@ public class InMemoryTaskManager implements TaskManager {
         return true;
     }
 
+
     @Override
     public List<Task> getHistory() {
-        return new ArrayList<>(InMemoryHistoryManager.getHistoryList());
+        InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
+        return historyManager.getHistory();
     }
 
 }

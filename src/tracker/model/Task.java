@@ -3,16 +3,15 @@ package tracker.model;
 import java.util.Objects;
 
 public class Task {
-    private final String name;
-    private final String description;
+    private String name;
+    private String description;
     private int id;
     private Status status;
 
 
-    public Task(String name, String description, int id, Status status) {
+    public Task(String name, String description, Status status) {
         this.name = name;
         this.description = description;
-        this.id = id;
         this.status = status;
 
     }
@@ -51,6 +50,14 @@ public class Task {
     }
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

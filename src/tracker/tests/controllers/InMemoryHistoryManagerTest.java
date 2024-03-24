@@ -4,7 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tracker.controllers.InMemoryHistoryManager;
 import tracker.controllers.InMemoryTaskManager;
+import tracker.model.Epic;
 import tracker.model.Status;
+import tracker.model.Subtask;
 import tracker.model.Task;
 
 import java.util.ArrayList;
@@ -18,44 +20,39 @@ class InMemoryHistoryManagerTest {
     @BeforeEach
     void setUp() {
         historyManager = new InMemoryHistoryManager();
-        // Optionally, reset the history list before each test
-        InMemoryHistoryManager.getHistoryList().clear();
     }
+
     @Test
     void testAddToHistory() {
-        
-        Task task = new Task("Тестовая задача", "Описание тестовой задачи",1, Status.NEW);
+        Task task = new Task("Test Task", "Description", Status.NEW);
 
         historyManager.add(task);
 
         List<Task> history = historyManager.getHistory();
 
-        assertNotNull(history, "История не должна быть пустой");
-        assertEquals(1, history.size(), "Размер истории должен быть 1");
-        assertEquals(task, history.get(0), "Задача в истории должна совпадать с добавленной задачей");
+        assertNotNull(history);
+        assertEquals(1, history.size());
+        assertEquals(task, history.get(0));
     }
 
     @Test
     void testAddToHistoryLimitedSize() {
-        InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
-
         for (int i = 1; i <= 15; i++) {
-            Task task = new Task("Тестовая задача " + i, "Описание тестовой задачи " + i, i+1, Status.NEW);
+            Task task = new Task("Test Task " + i, "Description " + i, Status.NEW);
             historyManager.add(task);
         }
 
         List<Task> history = historyManager.getHistory();
 
-        assertNotNull(history, "История не должна быть пустой");
-        assertEquals(10, history.size(), "Размер истории должен быть ограничен 10 элементами");
+        assertNotNull(history);
+        assertEquals(10, history.size());
     }
 
     @Test
     void testAddToHistoryOrdered() {
-
-        Task task1 = new Task("Тестовая задача 1", "Описание тестовой задачи 1", 1, Status.NEW);
-        Task task2 = new Task("Тестовая задача 2", "Описание тестовой задачи 2", 2, Status.IN_PROGRESS);
-        Task task3 = new Task("Тестовая задача 3", "Описание тестовой задачи 3", 3, Status.DONE);
+        Task task1 = new Task("Test Task 1", "Description 1", Status.NEW);
+        Task task2 = new Task("Test Task 2", "Description 2",  Status.IN_PROGRESS);
+        Task task3 = new Task("Test Task 3", "Description 3",  Status.DONE);
 
         historyManager.add(task1);
         historyManager.add(task2);
@@ -63,19 +60,23 @@ class InMemoryHistoryManagerTest {
 
         List<Task> history = historyManager.getHistory();
 
-        assertNotNull(history, "История не должна быть пустой");
-        assertEquals(3, history.size(), "Размер истории должен быть 3");
-        assertEquals(task1, history.get(0), "Задача 1 должна быть первой в истории");
-        assertEquals(task2, history.get(1), "Задача 2 должна быть второй в истории");
-        assertEquals(task3, history.get(2), "Задача 3 должна быть третьей в истории");
+        assertNotNull(history);
+        assertEquals(3, history.size());
+        assertEquals(task1, history.get(0));
+        assertEquals(task2, history.get(1));
+        assertEquals(task3, history.get(2));
     }
 
     @Test
     void testGetHistoryEmpty() {
         List<Task> history = historyManager.getHistory();
 
-        assertNotNull(history, "История не должна быть пустой");
-        assertEquals(0, history.size(), "Размер истории должен быть 0");
+        assertNotNull(history);
+        assertEquals(0, history.size());
     }
 
+
+
+
 }
+
