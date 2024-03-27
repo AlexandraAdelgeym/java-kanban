@@ -6,14 +6,16 @@ import tracker.model.Subtask;
 import tracker.model.Task;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public interface TaskManager {
     int generateId();
 
-    ArrayList<tracker.model.Task> getAllTasks();
+    HashMap<Integer, Task> getAllTasks();
 
-    ArrayList<tracker.model.Subtask> getAllSubtasks();
+    HashMap<Integer, Subtask> getAllSubtasks();
+    HashMap<Integer, Epic> getAllEpics();
 
     void deleteTasks();
 
