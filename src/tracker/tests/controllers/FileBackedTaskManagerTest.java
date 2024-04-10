@@ -46,7 +46,7 @@ public class FileBackedTaskManagerTest {
         taskManager.addNewEpic(epic);
         taskManager.addNewSubtask(subtask);
 
-        taskManager.saveToFile();
+        taskManager.save();
 
         System.out.println("File Content before loading:");
         System.out.println(Files.readString(tempFile.toPath()));
