@@ -5,6 +5,8 @@ import tracker.model.Status;
 import tracker.model.Subtask;
 import tracker.model.Task;
 import tracker.controllers.TaskManager;
+import tracker.exceptions.ManagerSaveException;
+import tracker.exceptions.ManagerLoadException;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -22,27 +24,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
     }
 
-    public class ManagerSaveException extends RuntimeException {
-
-        public ManagerSaveException(String message) {
-            super(message);
-        }
-
-        public ManagerSaveException(String message, Throwable cause) {
-            super(message, cause);
-        }
-    }
-
-    public class ManagerLoadException extends RuntimeException {
-
-        public ManagerLoadException(String message) {
-            super(message);
-        }
-
-        public ManagerLoadException(String message, Throwable cause) {
-            super(message, cause);
-        }
-    }
+    
 
 
     public void save() throws ManagerSaveException {
