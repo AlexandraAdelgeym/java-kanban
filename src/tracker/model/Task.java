@@ -1,5 +1,7 @@
 package tracker.model;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Task {
@@ -7,6 +9,9 @@ public class Task {
     private String description;
     private int id;
     private Status status;
+    private Duration duration;
+    private LocalDateTime startTime;
+
 
 
     public Task(String name, String description, Status status) {
@@ -14,6 +19,33 @@ public class Task {
         this.description = description;
         this.status = status;
 
+    }
+    public Task(String name, String description, Status status, Duration duration, LocalDateTime startTime) {
+        this.name = name;
+        this.description = description;
+        this.status = status;
+        this.duration = duration;
+        this.startTime = startTime;
+    }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return startTime.plus(duration);
     }
 
     @Override
@@ -62,7 +94,8 @@ public class Task {
 
     @Override
     public String toString() {
-        return "model.Task{id=" + id + ", name='" + name + "', status=" + status + "}";
+        return String.format("Task{id=%d, name='%s', description='%s', status=%s, duration=%s, startTime=%s}",
+                id, name, description, status, duration, startTime);
     }
 
 }
