@@ -54,4 +54,8 @@ public interface TaskManager {
     boolean allStatusesAre(ArrayList<Status> statuses, Status targetStatus);
 
     List<Task> getHistory();
+
+    List<Task> getPrioritizedTasks();
+
+    List<Task> getTasks();
 }
