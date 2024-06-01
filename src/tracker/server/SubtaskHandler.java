@@ -13,9 +13,9 @@ public class SubtaskHandler extends BaseHttpHandler {
     private TaskManager taskManager;
     private Gson gson;
 
-    public SubtaskHandler(TaskManager taskManager) {
+    public SubtaskHandler(TaskManager taskManager,  Gson gson) {
         this.taskManager = taskManager;
-        this.gson = new Gson();
+        this.gson = gson;
     }
 
     @Override

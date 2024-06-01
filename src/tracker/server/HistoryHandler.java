@@ -10,9 +10,9 @@ public class HistoryHandler extends BaseHttpHandler {
     private TaskManager taskManager;
     private Gson gson;
 
-    public HistoryHandler(TaskManager taskManager) {
+    public HistoryHandler(TaskManager taskManager, Gson gson) {
         this.taskManager = taskManager;
-        this.gson = new Gson();
+        this.gson = gson;
     }
 
     @Override

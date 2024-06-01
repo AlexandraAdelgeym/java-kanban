@@ -14,9 +14,9 @@ public class TaskHandler extends BaseHttpHandler {
     private TaskManager taskManager;
     private Gson gson;
 
-    public TaskHandler(TaskManager taskManager) {
+    public TaskHandler(TaskManager taskManager, Gson gson) {
         this.taskManager = taskManager;
-        this.gson = new Gson();
+        this.gson = gson;
     }
 
     @Override

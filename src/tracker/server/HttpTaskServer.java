@@ -14,15 +14,19 @@ public class HttpTaskServer {
     private static final int PORT = 8080;
     private HttpServer server;
     private TaskManager taskManager;
+    private Gson gson;
+
 
     public HttpTaskServer(TaskManager taskManager) throws IOException {
         this.taskManager = taskManager;
+        this.gson = Managers.getGson();
+
         this.server = HttpServer.create(new InetSocketAddress(PORT), 0);
-        server.createContext("/tasks", new TaskHandler(taskManager));
-        server.createContext("/subtasks", new SubtaskHandler(taskManager));
-        server.createContext("/epics", new EpicHandler(taskManager));
-        server.createContext("/history", new HistoryHandler(taskManager));
-        server.createContext("/prioritized", new PrioritizedTasksHandler(taskManager));
+        server.createContext("/tasks", new TaskHandler(taskManager, gson));
+        server.createContext("/subtasks", new SubtaskHandler(taskManager, gson));
+        server.createContext("/epics", new EpicHandler(taskManager, gson));
+        server.createContext("/history", new HistoryHandler(taskManager, gson));
+        server.createContext("/prioritized", new PrioritizedTasksHandler(taskManager, gson));
     }
 
     public void start() {
@@ -35,9 +39,6 @@ public class HttpTaskServer {
         System.out.println("Server stopped");
     }
 
-    public static Gson getGson() {
-        return new GsonBuilder().create();
-    }
     public static void main(String[] args) throws IOException {
         TaskManager taskManager = new InMemoryTaskManager();
         HttpTaskServer server = new HttpTaskServer(taskManager);

@@ -10,9 +10,9 @@ public class PrioritizedTasksHandler extends BaseHttpHandler {
     private TaskManager taskManager;
     private Gson gson;
 
-    public PrioritizedTasksHandler(TaskManager taskManager) {
+    public PrioritizedTasksHandler(TaskManager taskManager, Gson gson) {
         this.taskManager = taskManager;
-        this.gson = new Gson();
+        this.gson = gson;
     }
 
     @Override

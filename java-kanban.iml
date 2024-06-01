@@ -80,7 +80,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" exported="" name="src" level="project" />
+    <orderEntry type="library" name="src" level="project" />
     <orderEntry type="module-library">
       <library>
         <CLASSES />
@@ -88,6 +88,16 @@
         <SOURCES>
           <root url="file://$USER_HOME$/m1-t25-api/src" />
         </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
       </library>
     </orderEntry>
   </component>
